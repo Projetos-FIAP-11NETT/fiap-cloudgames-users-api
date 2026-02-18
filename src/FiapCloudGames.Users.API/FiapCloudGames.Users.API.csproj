@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.1">
+		<PrivateAssets>all</PrivateAssets>
+		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.1" />
+	<PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+	<PackageReference Include="NewRelic.Agent.Api" Version="10.47.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FiapCloudGames.Users.Application\FiapCloudGames.Users.Application.csproj" />
+    <ProjectReference Include="..\FiapCloudGames.Users.Domain\FiapCloudGames.Users.Domain.csproj" />
+    <ProjectReference Include="..\FiapCloudGames.Users.Infrastructure\FiapCloudGames.Users.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
