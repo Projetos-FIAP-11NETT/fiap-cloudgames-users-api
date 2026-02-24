@@ -1,5 +1,5 @@
-using FiapCloudGames.Users.API.Configurations;
-using FiapCloudGames.Users.API.Middlewares;
+using FiapCloudGames.Users.Api.Configurations;
+using FiapCloudGames.Users.Api.Middlewares;
 using FiapCloudGames.Users.Application.Abstractions;
 using FiapCloudGames.Users.Application.Configurations;
 using FiapCloudGames.Users.Infrastructure.Configurations;

@@ -1,9 +1,9 @@
-﻿using FiapCloudGames.Users.API.Constants;
+﻿using FiapCloudGames.Users.Api.Constants;
 using FiapCloudGames.Users.Domain.Exceptions;
 using System.Net;
 using System.Text.Json;
 
-namespace FiapCloudGames.Users.API.Middlewares;
+namespace FiapCloudGames.Users.Api.Middlewares;
 
 public class ExceptionMiddleware(
     RequestDelegate next,

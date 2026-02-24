@@ -1,12 +1,13 @@
 services:
 
   db:
-    image: postgres
+    image: postgres:16
     container_name: postgres_db
     shm_size: 128mb
     environment:
       POSTGRES_USER: postgresAdmin
       POSTGRES_PASSWORD: postgresAdmin
+      POSTGRES_DB: user-db
     ports:
       - "5432:5432"
     volumes:
@@ -69,3 +70,7 @@ volumes:
   # build     : docker-compose -p minha-infra -f docker-compose.infra.yml build
   # start     : docker-compose -p minha-infra -f docker-compose.infra.yml up -d
   # recreate  : docker-compose -p minha-infra -f docker-compose.infra.yml up -d --force-recreate
+
+
+#dotnet ef migrations add InitialCreate
+#dotnet ef database update

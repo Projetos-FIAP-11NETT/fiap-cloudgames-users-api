@@ -1,4 +1,4 @@
-﻿namespace FiapCloudGames.Users.API.Constants;
+﻿namespace FiapCloudGames.Users.Api.Constants;
 
 public static class HeaderNames
 {

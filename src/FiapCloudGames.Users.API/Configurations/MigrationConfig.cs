@@ -1,7 +1,7 @@
 ﻿using FiapCloudGames.Users.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace FiapCloudGames.Users.API.Configurations;
+namespace FiapCloudGames.Users.Api.Configurations;
 
 public static class MigrationConfig
 {

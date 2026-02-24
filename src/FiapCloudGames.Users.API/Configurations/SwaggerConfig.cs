@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 
-namespace FiapCloudGames.Users.API.Configurations;
+namespace FiapCloudGames.Users.Api.Configurations;
 
 public static class SwaggerConfig
 {

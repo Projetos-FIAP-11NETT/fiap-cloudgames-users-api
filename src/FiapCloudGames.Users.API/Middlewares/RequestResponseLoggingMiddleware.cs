@@ -1,8 +1,8 @@
-﻿using FiapCloudGames.Users.API.Constants;
+﻿using FiapCloudGames.Users.Api.Constants;
 using Serilog.Context;
 using System.Diagnostics;
 
-namespace FiapCloudGames.Users.API.Middlewares;
+namespace FiapCloudGames.Users.Api.Middlewares;
 
 // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
 public sealed class RequestResponseLoggingMiddleware(

@@ -1,6 +1,6 @@
 ﻿using Serilog;
 
-namespace FiapCloudGames.Users.API.Configurations;
+namespace FiapCloudGames.Users.Api.Configurations;
 
 public static class SerilogConfig
 {

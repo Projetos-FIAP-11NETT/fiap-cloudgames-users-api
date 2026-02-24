@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FiapCloudGames.Users.API.Controllers;
+namespace FiapCloudGames.Users.Api.Controllers;
 
 [Route("api/v1/[controller]")]
 public class UserController

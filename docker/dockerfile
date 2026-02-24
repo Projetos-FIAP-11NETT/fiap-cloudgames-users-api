@@ -1,0 +1,75 @@
+
+# Passo 1: Restore (copia apenas arquivos necess�rios para restore, para aproveitar cache)
+
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS restore
+WORKDIR /app
+
+COPY ./src/FiapCloudGames.Users.slnx ./
+
+COPY ./src/FiapCloudGames.Users.Api/*.csproj ./FiapCloudGames.Users.Api/
+COPY ./src/FiapCloudGames.Users.Application/*.csproj ./FiapCloudGames.Users.Application/
+COPY ./src/FiapCloudGames.Users.Contract/*.csproj ./FiapCloudGames.Users.Contract/
+COPY ./src/FiapCloudGames.Users.Domain/*.csproj ./FiapCloudGames.Users.Domain/
+COPY ./src/FiapCloudGames.Users.Infrastructure/*.csproj ./FiapCloudGames.Users.Infrastructure/
+COPY ./src/FiapCloudGames.Users.Queue/*.csproj ./FiapCloudGames.Users.Queue/
+COPY ./src/FiapCloudGames.Users.Tests/*.csproj ./FiapCloudGames.Users.Tests/
+COPY ./src/FiapCloudGames.Users.AntiCorruption/*.csproj ./FiapCloudGames.Users.AntiCorruption/
+
+RUN dotnet restore FiapCloudGames.Users.slnx
+
+
+
+# Passo 2: Build (copia o c�digo restante e compila, aproveitando cache do restore)
+
+FROM restore AS build
+WORKDIR /app
+
+COPY ./src/. .
+
+RUN dotnet build FiapCloudGames.Users.slnx \
+    -c Release \
+    --no-restore
+
+
+
+# Passo 3: Test (rodar testes unit�rios, aproveitando cache do build)
+
+FROM build AS test
+RUN dotnet test FiapCloudGames.Users.slnx \
+    -c Release \
+    --no-build \
+    --verbosity normal
+
+
+
+# Passo 4: Publish (gera os arquivos de publica��o, aproveitando cache do build)
+
+FROM build AS publish
+RUN dotnet publish FiapCloudGames.Users.Api/FiapCloudGames.Users.Api.csproj \
+    -c Release \
+    -o /app/publish \
+    --no-build
+
+
+
+# Passo 5: Runtime (gera a imagem final, copiando apenas os arquivos de publica��o)
+
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
+WORKDIR /app
+
+COPY --from=publish /app/publish .
+
+EXPOSE 8083
+
+ENTRYPOINT ["dotnet", "FiapCloudGames.Users.Api.dll"]
+
+
+
+#gera a imagem  projetofiap/users-api:1 
+#docker build -f docker/Dockerfile -t projetofiap/users-api:1 . 
+#docker run -d -p 8083:8083 --name users-api projetofiap/users-api:1
+
+#docker login -u projetofiap #para se conectar ao Docker Hub 
+#password: Fiap!2026
+
+#docker push projetofiap/users-api:1 #sobe imagem para o repositório no Docker Hub

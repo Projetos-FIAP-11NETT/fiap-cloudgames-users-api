@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace FiapCloudGames.Users.API.Configurations;
+namespace FiapCloudGames.Users.Api.Configurations;
 
 public static class AuthenticationConfig
 {
