@@ -1,8 +1,10 @@
-﻿using FiapCloudGames.Users.Auth;
+﻿using FiapCloudGames.Queue.Publisher;
+using FiapCloudGames.Users.Auth;
 using FiapCloudGames.Users.Domain.Contracts.Repositories;
 using FiapCloudGames.Users.Domain.Entities;
 using FiapCloudGames.Users.Domain.Exceptions;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace FiapCloudGames.Users.Application.UserFeature.Commands.CreateUser;
 
@@ -10,7 +12,9 @@ public class CreateUserCommandHandler
     (
         IAuthService authService,
         IUserRepository userRepository,
-        IRoleRepository roleRepository
+        IRoleRepository roleRepository,
+        IUserCreatedPublisher userCreatedPublisher,
+        ILogger<CreateUserCommandHandler> logger
     )
     : IRequestHandler<CreateUserCommand, bool>
 {
@@ -32,9 +36,22 @@ public class CreateUserCommandHandler
             throw new ExternalException("Firebase","Não foi possível criar a conta no Firebase");
 
         user.SetFirebaseUserId(firebaseUserId);
-
         await userRepository.AddAsync(user);
-        return await userRepository.SaveChangesAsync(cancellationToken);
+
+        var result = await userRepository.SaveChangesAsync(cancellationToken);
+
+        if (result)
+        {
+            try
+            {
+                await userCreatedPublisher.PublishAsync(user.Id, user.Email, user.Name);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Erro ao publicar evento de usuário criado para o usuário {UserId}", user.Id);
+            }
+        }
+        return result; 
     }
 
     

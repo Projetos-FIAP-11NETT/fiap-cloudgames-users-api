@@ -2,10 +2,11 @@ using FiapCloudGames.Users.Api.Configurations;
 using FiapCloudGames.Users.Api.Middlewares;
 using FiapCloudGames.Users.Application.Abstractions;
 using FiapCloudGames.Users.Application.Configurations;
+using FiapCloudGames.Users.Auth.Configurations;
 using FiapCloudGames.Users.Infrastructure.Configurations;
 using FiapCloudGames.Users.Infrastructure.Correlation;
-using Microsoft.EntityFrameworkCore;
-using FiapCloudGames.Users.Auth.Configurations;
+using FiapCloudGames.Queue.Configurations;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,7 @@ builder.Services.AddApplication();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
+builder.Services.AddQueueConfig(builder.Configuration);
 
 
 var app = builder.Build();

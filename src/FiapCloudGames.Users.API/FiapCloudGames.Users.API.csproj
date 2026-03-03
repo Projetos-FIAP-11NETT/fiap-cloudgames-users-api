@@ -20,5 +20,6 @@
     <ProjectReference Include="..\FiapCloudGames.Users.Application\FiapCloudGames.Users.Application.csproj" />
     <ProjectReference Include="..\FiapCloudGames.Users.Domain\FiapCloudGames.Users.Domain.csproj" />
     <ProjectReference Include="..\FiapCloudGames.Users.Infrastructure\FiapCloudGames.Users.Infrastructure.csproj" />
+    <ProjectReference Include="..\FiapCloudGames.Users.Queue\FiapCloudGames.Queue.csproj" />
   </ItemGroup>
 </Project>

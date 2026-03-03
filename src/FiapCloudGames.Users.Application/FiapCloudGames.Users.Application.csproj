@@ -18,5 +18,6 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\FiapCloudGames.Users.AntiCorruption\FiapCloudGames.Users.Auth.csproj" />
 	  <ProjectReference Include="..\FiapCloudGames.Users.Domain\FiapCloudGames.Users.Domain.csproj" />
+	  <ProjectReference Include="..\FiapCloudGames.Users.Queue\FiapCloudGames.Queue.csproj" />
 	</ItemGroup>
 </Project>
