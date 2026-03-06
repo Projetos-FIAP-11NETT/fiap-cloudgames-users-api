@@ -10,10 +10,10 @@ namespace FiapCloudGames.Queue.Publisher
         private readonly IPublishEndpoint _publishEndpoint = bus;
         private readonly ILogger<UserCreatedPublisher> _logger = logger;
 
-        public  Task PublishAsync(Guid idUser, string email, string name)
+        public Task PublishAsync(Guid idUser, string email, string name)
         {
             _logger.LogDebug(
-                "Publishing ICreatedPublisher to RabbitMQ: idUser={UserId}, email={Email}, name={Name}",
+                "Publishing ICreatedPublisher to RabbitMQ: Id={idUser}, Email={email}, Name={name}",
                 idUser, email, name);
 
             return _publishEndpoint.Publish<IUserCreated>(new

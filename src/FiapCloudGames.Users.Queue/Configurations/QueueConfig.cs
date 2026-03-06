@@ -17,6 +17,8 @@ public static class QueueConfig
 
         services.AddScoped<IUserCreatedPublisher, UserCreatedPublisher>();
 
+        services.AddScoped<IUserLoggedPublisher, UserLoggedPublisher>();
+
         services.RegisterRabbitmqStartup();
 
         return services;

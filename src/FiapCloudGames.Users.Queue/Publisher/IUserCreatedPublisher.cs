@@ -2,6 +2,6 @@
 {
     public interface IUserCreatedPublisher
     {
-        Task PublishAsync( Guid idUser, string email, string name);
+        Task PublishAsync(Guid idUser, string email, string name);
     }
 }
