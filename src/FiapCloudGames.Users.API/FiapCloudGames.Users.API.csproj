@@ -12,8 +12,10 @@
 		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
 	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.1" />
-	<PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
-	<PackageReference Include="NewRelic.Agent.Api" Version="10.47.2" />
+	<PackageReference Include="NewRelic.Agent.Api" Version="10.49.0" />
+	<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
+	<PackageReference Include="Scalar.AspNetCore.Microsoft" Version="2.12.42" />
+	<PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>

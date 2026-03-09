@@ -9,8 +9,8 @@ public sealed class RequestResponseLoggingMiddleware(
 RequestDelegate next,
 ILogger<RequestResponseLoggingMiddleware> logger)
 {
-    private const string MessageRequest = "CorrelationId: {CorrelationId} | Inicio da Requisicao {Method} {Path}";
-    private const string MessageResponse = "CorrelationId: {CorrelationId} | Final da Requisicao {Method} {Path} | StatusCode: {StatusCode} {Elapsed}ms";
+    private const string MessageRequest = "[user-service] CorrelationId: {CorrelationId} | Inicio da Requisicao {Method} {Path}";
+    private const string MessageResponse = "[user-service] CorrelationId: {CorrelationId} | Final da Requisicao {Method} {Path} | StatusCode: {StatusCode} {Elapsed}ms";
 
     private readonly RequestDelegate _next = next;
     private readonly ILogger<RequestResponseLoggingMiddleware> _logger = logger;
@@ -62,14 +62,5 @@ ILogger<RequestResponseLoggingMiddleware> logger)
         context.Request.Headers[HeaderNames.CorrelationId] = newCorrelationId;
 
         return newCorrelationId;
-    }
-}
-
-// Extension method used to add the middleware to the HTTP request pipeline.
-public static class MiddlewareExtensions
-{
-    public static IApplicationBuilder UseRequestResponseLogging(this IApplicationBuilder builder)
-    {
-        return builder.UseMiddleware<RequestResponseLoggingMiddleware>();
     }
 }

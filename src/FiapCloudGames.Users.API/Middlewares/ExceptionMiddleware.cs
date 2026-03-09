@@ -33,7 +33,7 @@ public class ExceptionMiddleware(
                     ?? Guid.NewGuid().ToString();
             _logger.LogError(
                ex,
-               "Exceção capturada - CorrelationId: {CorrelationId}, Message: {Message}",
+               "[user-service] Exceção capturada - CorrelationId: {CorrelationId}, Message: {Message}",
                correlationId,
                ex.Message
            );

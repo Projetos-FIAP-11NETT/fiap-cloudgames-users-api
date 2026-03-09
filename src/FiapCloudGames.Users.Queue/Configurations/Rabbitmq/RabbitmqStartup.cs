@@ -1,4 +1,5 @@
 ﻿using FiapCloudGames.Queue.Configurations.MassTransit;
+using FiapCloudGames.Users.Observability.Providers.NewRelic;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -27,6 +28,7 @@ public static class RabbitmqStartup
                     h.Password(rabbitmqSettings.Password);
                 });
 
+                cfg.UseConsumeFilter(typeof(NewRelicConsumeFilter<>), context);
 
                 cfg.ConfigureEndpoints(context);
 

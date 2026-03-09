@@ -11,5 +11,6 @@
   <Project Path="FiapCloudGames.Users.Contract/FiapCloudGames.Users.Contract.csproj" />
   <Project Path="FiapCloudGames.Users.Domain/FiapCloudGames.Users.Domain.csproj" />
   <Project Path="FiapCloudGames.Users.Infrastructure/FiapCloudGames.Users.Infrastructure.csproj" />
+  <Project Path="FiapCloudGames.Users.Observability/FiapCloudGames.Users.Observability.csproj" Id="cec87b0d-ed7a-40e9-b28a-287160e6e6a0" />
   <Project Path="FiapCloudGames.Users.Queue/FiapCloudGames.Queue.csproj" />
 </Solution>

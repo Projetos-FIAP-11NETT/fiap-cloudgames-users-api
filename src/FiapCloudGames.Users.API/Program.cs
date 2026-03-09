@@ -1,23 +1,20 @@
+using FiapCloudGames.Queue.Configurations;
+using FiapCloudGames.Users.Api.Configuration;
 using FiapCloudGames.Users.Api.Configurations;
-using FiapCloudGames.Users.Api.Middlewares;
+using FiapCloudGames.Users.Api.Configurations.OpenApi;
 using FiapCloudGames.Users.Application.Abstractions;
 using FiapCloudGames.Users.Application.Configurations;
 using FiapCloudGames.Users.Auth.Configurations;
 using FiapCloudGames.Users.Infrastructure.Configurations;
 using FiapCloudGames.Users.Infrastructure.Correlation;
-using FiapCloudGames.Queue.Configurations;
+using FiapCloudGames.Users.Observability.Configurations;
+using Scalar.AspNetCore;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
-
-builder.Services.AddEndpointsApiExplorer();
-
 builder.Services.AddHttpClient();
-
-builder.Services.AddSwaggerConfig();
 
 builder.Services.AddAuthenticationConfig();
 
@@ -37,20 +34,21 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddQueueConfig(builder.Configuration);
 
+builder.Services.AddObservabilityConfig();
+
+builder.Services.AddApiConfig(builder.Configuration);
 
 var app = builder.Build();
 
+app.UseApiConfig();
+
+app.MapControllers();
+
+app.MapOpenApiConfiguration();
+
+app.MapHealthCheckEndpoints();
+
 app.ApplyMigrations();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwaggerConfig();
-}
-
-app.UseRequestResponseLogging();
-
-app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
@@ -58,6 +56,5 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllers();
 
 app.Run();
