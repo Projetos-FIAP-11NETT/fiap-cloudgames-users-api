@@ -14,6 +14,8 @@ COPY ./src/FiapCloudGames.Users.Infrastructure/*.csproj ./FiapCloudGames.Users.I
 COPY ./src/FiapCloudGames.Users.Queue/*.csproj ./FiapCloudGames.Users.Queue/
 COPY ./src/FiapCloudGames.Users.Tests/*.csproj ./FiapCloudGames.Users.Tests/
 COPY ./src/FiapCloudGames.Users.AntiCorruption/*.csproj ./FiapCloudGames.Users.AntiCorruption/
+COPY ./src/FiapCloudGames.Users.Observability/*.csproj ./FiapCloudGames.Users.Observability/
+
 
 RUN dotnet restore FiapCloudGames.Users.slnx
 
@@ -67,7 +69,7 @@ CORECLR_PROFILER={36032161-FFC0-4B61-B559-F6C5D41BAE5A} \
 CORECLR_NEWRELIC_HOME=/usr/local/newrelic-dotnet-agent \
 CORECLR_PROFILER_PATH=/usr/local/newrelic-dotnet-agent/libNewRelicProfiler.so
 
-EXPOSE 8083
+EXPOSE 8082
 
 ENTRYPOINT ["dotnet", "FiapCloudGames.Users.Api.dll"]
 
