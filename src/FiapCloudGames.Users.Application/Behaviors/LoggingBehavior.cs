@@ -1,5 +1,6 @@
 ﻿using FiapCloudGames.Users.Application.Abstractions;
 using FiapCloudGames.Users.Application.Common;
+using FiapCloudGames.Users.Observability.Abstractions;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Serilog.Context;
@@ -8,40 +9,32 @@ using System.Diagnostics;
 namespace FiapCloudGames.Users.Application.Behaviors;
 
 public sealed class LoggingBehavior<TRequest, TResponse>
-: IPipelineBehavior<TRequest, TResponse>
-{
-    private readonly ILogger<LoggingBehavior<TRequest, TResponse>> _logger;
-    private readonly ICorrelationIdAccessor _correlation;
-
-    public LoggingBehavior(
+    (
         ILogger<LoggingBehavior<TRequest, TResponse>> logger,
-        ICorrelationIdAccessor correlation)
-    {
-        _logger = logger;
-        _correlation = correlation;
-    }
-
+        ICorrelationIdAccessor correlation,
+        IObservabilityService observabilityService
+    )
+    : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : notnull
+{
     public async Task<TResponse> Handle(
         TRequest request,
         RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
         var requestName = typeof(TRequest).Name;
-        var correlationId = _correlation.CorrelationId;
+        var correlationId = correlation.CorrelationId;
         var stopwatch = Stopwatch.StartNew();
         var safeRequest = DataMasker.Mask(request!);
-        // New Relic
-        var agent = NewRelic.Api.Agent.NewRelic.GetAgent();
-        var transaction = agent.CurrentTransaction;
 
         using (LogContext.PushProperty("CorrelationId", correlationId))
         {
-            transaction.AddCustomAttribute("CorrelationId", correlationId);
-            transaction.AddCustomAttribute("RequestName", typeof(TRequest).Name);
-            transaction.AddCustomAttribute("request.payload", safeRequest);
+            observabilityService.AddCustomAttribute("CorrelationId", correlationId);
+            observabilityService.AddCustomAttribute("RequestName", typeof(TRequest).Name);
+            observabilityService.AddCustomAttribute("request.payload", safeRequest);
         }
             // REQUEST
-            _logger.LogInformation(
+        logger.LogInformation(
             "CorrelationId {CorrelationId} | Iniciando {RequestName} Parametros: {request.payload}",
             correlationId,
             requestName,
@@ -52,12 +45,12 @@ public sealed class LoggingBehavior<TRequest, TResponse>
         {
             var response = await next();
 
-            transaction.AddCustomAttribute("response.payload", response!);
+            observabilityService.AddCustomAttribute("response.payload", response!);
 
             stopwatch.Stop();
 
             // RESPONSE
-            _logger.LogInformation(
+            logger.LogInformation(
                 "CorrelationId {CorrelationId} | Finalizando {RequestName} em {Elapsed}ms Response: {response.payload}",
                 correlationId,
                 requestName,
@@ -71,7 +64,7 @@ public sealed class LoggingBehavior<TRequest, TResponse>
         {
             stopwatch.Stop();
 
-            _logger.LogError(
+            logger.LogError(
                 ex,
                 "CorrelationId {CorrelationId} | Erro em {RequestName} em {Elapsed}ms",
                 correlationId,

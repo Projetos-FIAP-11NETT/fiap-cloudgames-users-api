@@ -1,13 +1,17 @@
 ﻿using FiapCloudGames.Users.Api.Constants;
+using FiapCloudGames.Users.Observability.Abstractions;
 using Serilog.Context;
 using System.Diagnostics;
 
 namespace FiapCloudGames.Users.Api.Middlewares;
 
 // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
-public sealed class RequestResponseLoggingMiddleware(
-RequestDelegate next,
-ILogger<RequestResponseLoggingMiddleware> logger)
+public sealed class RequestResponseLoggingMiddleware
+    (
+        RequestDelegate next,
+        ILogger<RequestResponseLoggingMiddleware> logger,
+        IObservabilityService observabilityService
+    )
 {
     private const string MessageRequest = "[user-service] CorrelationId: {CorrelationId} | Inicio da Requisicao {Method} {Path}";
     private const string MessageResponse = "[user-service] CorrelationId: {CorrelationId} | Final da Requisicao {Method} {Path} | StatusCode: {StatusCode} {Elapsed}ms";
@@ -35,11 +39,7 @@ ILogger<RequestResponseLoggingMiddleware> logger)
 
             using (LogContext.PushProperty("CorrelationId", correlationId))
             {
-                // New Relic
-                var agent = NewRelic.Api.Agent.NewRelic.GetAgent();
-                var transaction = agent.CurrentTransaction;
-
-                transaction.AddCustomAttribute("CorrelationId", correlationId);
+                observabilityService.AddCustomAttribute("CorrelationId", correlationId);
                 _logger.LogInformation(MessageRequest, correlationId, context.Request.Method, context.Request.Path);
 
                 await _next(context);
