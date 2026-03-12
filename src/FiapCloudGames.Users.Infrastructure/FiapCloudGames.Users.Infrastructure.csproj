@@ -25,5 +25,6 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\FiapCloudGames.Users.Application\FiapCloudGames.Users.Application.csproj" />
 	  <ProjectReference Include="..\FiapCloudGames.Users.Domain\FiapCloudGames.Users.Domain.csproj" />
+	  <ProjectReference Include="..\FiapCloudGames.Users.Shared\FiapCloudGames.Users.Shared.csproj" />
 	</ItemGroup>
 </Project>

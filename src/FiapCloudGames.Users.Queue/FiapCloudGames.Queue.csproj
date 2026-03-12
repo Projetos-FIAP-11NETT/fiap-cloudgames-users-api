@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FiapCloudGames.Users.Observability\FiapCloudGames.Users.Observability.csproj" />
+    <ProjectReference Include="..\FiapCloudGames.Users.Shared\FiapCloudGames.Users.Shared.csproj" />
   </ItemGroup>
 
 </Project>

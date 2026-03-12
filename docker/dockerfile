@@ -15,6 +15,8 @@ COPY ./src/FiapCloudGames.Users.Queue/*.csproj ./FiapCloudGames.Users.Queue/
 COPY ./src/FiapCloudGames.Users.Tests/*.csproj ./FiapCloudGames.Users.Tests/
 COPY ./src/FiapCloudGames.Users.AntiCorruption/*.csproj ./FiapCloudGames.Users.AntiCorruption/
 COPY ./src/FiapCloudGames.Users.Observability/*.csproj ./FiapCloudGames.Users.Observability/
+COPY ./src/FiapCloudGames.Users.Shared/*.csproj ./FiapCloudGames.Users.Shared/
+
 
 
 RUN dotnet restore FiapCloudGames.Users.slnx

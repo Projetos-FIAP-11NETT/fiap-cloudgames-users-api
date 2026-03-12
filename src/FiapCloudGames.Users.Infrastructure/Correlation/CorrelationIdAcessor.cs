@@ -1,4 +1,4 @@
-﻿using FiapCloudGames.Users.Application.Abstractions;
+﻿using FiapCloudGames.Users.Shared.Abstractions;
 using Microsoft.AspNetCore.Http;
 
 namespace FiapCloudGames.Users.Infrastructure.Correlation
@@ -12,9 +12,9 @@ namespace FiapCloudGames.Users.Infrastructure.Correlation
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public string CorrelationId =>
-            _httpContextAccessor.HttpContext?.Items["X-Correlation-Id"]?.ToString()
-            ?? "N/A";
+        public Guid CorrelationId =>
+            Guid.TryParse(_httpContextAccessor.HttpContext?.Items["X-Correlation-Id"]?.ToString(), out var correlationId)
+                    ? correlationId
+                    : Guid.NewGuid();
     }
-
 }

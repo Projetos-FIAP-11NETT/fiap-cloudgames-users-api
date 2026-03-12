@@ -2,13 +2,12 @@ using FiapCloudGames.Queue.Configurations;
 using FiapCloudGames.Users.Api.Configuration;
 using FiapCloudGames.Users.Api.Configurations;
 using FiapCloudGames.Users.Api.Configurations.OpenApi;
-using FiapCloudGames.Users.Application.Abstractions;
 using FiapCloudGames.Users.Application.Configurations;
 using FiapCloudGames.Users.Auth.Configurations;
 using FiapCloudGames.Users.Infrastructure.Configurations;
 using FiapCloudGames.Users.Infrastructure.Correlation;
 using FiapCloudGames.Users.Observability.Configurations;
-using Scalar.AspNetCore;
+using FiapCloudGames.Users.Shared.Abstractions;
 
 
 
@@ -55,6 +54,5 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
-
 
 app.Run();

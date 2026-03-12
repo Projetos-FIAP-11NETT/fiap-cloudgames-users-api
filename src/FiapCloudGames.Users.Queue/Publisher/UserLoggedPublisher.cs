@@ -1,11 +1,12 @@
 ﻿using FiapCloudGames.Queue.Configurations.Rabbitmq;
 using FiapCloudGames.Queue.Contracts;
+using FiapCloudGames.Users.Shared.Abstractions;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
 namespace FiapCloudGames.Queue.Publisher
 {
-    public class UserLoggedPublisher(IRabbitmqPublish bus, ILogger<UserLoggedPublisher> logger) : IUserLoggedPublisher
+    public class UserLoggedPublisher(IRabbitmqPublish bus, ILogger<UserLoggedPublisher> logger, ICorrelationIdAccessor correlation) : IUserLoggedPublisher
     {
         private readonly IPublishEndpoint _publishEndpoint = bus;
         private readonly ILogger<UserLoggedPublisher> _logger = logger;
@@ -22,6 +23,8 @@ namespace FiapCloudGames.Queue.Publisher
                 RefreshToken = refreshToken,
                 ExpiresIn = expiresIn,
                 Email = email
+            }, context => {
+                context.CorrelationId = correlation.CorrelationId;
             });
         }
     }

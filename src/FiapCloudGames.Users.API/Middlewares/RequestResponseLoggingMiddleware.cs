@@ -1,4 +1,4 @@
-﻿using FiapCloudGames.Users.Api.Constants;
+using FiapCloudGames.Users.Api.Constants;
 using FiapCloudGames.Users.Observability.Abstractions;
 using Serilog.Context;
 using System.Diagnostics;
@@ -6,20 +6,13 @@ using System.Diagnostics;
 namespace FiapCloudGames.Users.Api.Middlewares;
 
 // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
-public sealed class RequestResponseLoggingMiddleware
-    (
-        RequestDelegate next,
-        ILogger<RequestResponseLoggingMiddleware> logger,
-        IObservabilityService observabilityService
-    )
+public sealed class RequestResponseLoggingMiddleware(RequestDelegate _next, ILogger<RequestResponseLoggingMiddleware> _logger)
 {
     private const string MessageRequest = "[user-service] CorrelationId: {CorrelationId} | Inicio da Requisicao {Method} {Path}";
     private const string MessageResponse = "[user-service] CorrelationId: {CorrelationId} | Final da Requisicao {Method} {Path} | StatusCode: {StatusCode} {Elapsed}ms";
 
-    private readonly RequestDelegate _next = next;
-    private readonly ILogger<RequestResponseLoggingMiddleware> _logger = logger;
 
-    public async Task InvokeAsync(HttpContext context)
+    public async Task InvokeAsync(HttpContext context, IObservabilityService observabilityService)
     {
         // CorrelationId
         var correlationId = GetOrCreateCorrelationId(context);

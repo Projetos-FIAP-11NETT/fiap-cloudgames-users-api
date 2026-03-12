@@ -1,6 +1,6 @@
-﻿using FiapCloudGames.Users.Application.Abstractions;
-using FiapCloudGames.Users.Application.Common;
+﻿using FiapCloudGames.Users.Application.Common;
 using FiapCloudGames.Users.Observability.Abstractions;
+using FiapCloudGames.Users.Shared.Abstractions;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Serilog.Context;
