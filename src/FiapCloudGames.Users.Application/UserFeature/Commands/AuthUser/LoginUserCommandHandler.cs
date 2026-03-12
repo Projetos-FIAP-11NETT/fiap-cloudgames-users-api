@@ -11,7 +11,6 @@ namespace FiapCloudGames.Users.Application.UserFeature.Commands.AuthUser;
 public class LoginUserCommandHandler
     (
         IAuthService firebaseAuthService,
-        IUserLoggedPublisher userLoggedPublisher,
         ILogger<LoginUserCommandHandler> logger
     )
     : IRequestHandler<LoginUserCommand,LoginResponse>
@@ -20,18 +19,6 @@ public class LoginUserCommandHandler
     public async Task<LoginResponse> Handle(LoginUserCommand command, CancellationToken cancellationToken)
     {
         var responseToken = await AuthUserInFirebase(command);
-
-        if (responseToken != null)
-        {
-            try
-            {
-                await userLoggedPublisher.PublishAsync(responseToken.IdToken, responseToken.RefreshToken, responseToken.ExpiresIn, responseToken.Email);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Erro ao publicar evento de usuário logado para o e-mail {UserId}", responseToken.Email);
-            }
-        }
 
         return new LoginResponse
         {
