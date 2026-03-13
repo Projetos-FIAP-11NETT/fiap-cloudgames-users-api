@@ -26,7 +26,8 @@ public class CreateUserCommandHandlerTests
                 It.IsAny<string>(),
                 It.IsAny<string>(),
                 It.IsAny<string>(),                
-                new List<string>() { role.Name }))
+                new List<string>() { role.Name },
+                It.IsAny<Guid>()))
             .ReturnsAsync(firebaseUserId);
 
         mock.GetMock<IUserRepository>()

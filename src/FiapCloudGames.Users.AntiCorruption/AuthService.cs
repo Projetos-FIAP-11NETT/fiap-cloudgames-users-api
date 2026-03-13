@@ -12,13 +12,14 @@ public sealed class AuthService
     )
     : IAuthService
 {
-    public async Task<string> CreateUserAsync(string email, string password, string name, IEnumerable<string> roles)
+    public async Task<string> CreateUserAsync(string email, string password, string name, IEnumerable<string> roles, Guid userId)
     {
         var firebaseUserId = await client.CreateUserAsync(email, password, name);
         if (string.IsNullOrEmpty(firebaseUserId))
             return string.Empty;
 
-        await client.SetUserRoleAsync(firebaseUserId, roles);
+        await client.SetUserRoleAsync(firebaseUserId, roles, userId);
+        //await client.SetUserIdAsync(firebaseUserId, userId);
 
         return firebaseUserId;
     }

@@ -28,15 +28,16 @@ public sealed class FirebaseAuthServiceTest
                 "user@email.com",
                 "123456",
                 "User",
-                [RoleFactory.CreateUserRole().Name]));
+                [RoleFactory.CreateUserRole().Name],
+                Guid.NewGuid()));
 
         // Assert
         Assert.Equal("Firebase error", exception.Message);
     }
 
     [Theory]
-    [InlineData("teste1@gmail.com", "123456", "Usuário1", "firebase-uid-123")]
-    public async Task CreateUserAsync_MustCallClientAndReturnUid(string email, string password, string name, string firebaseUserId)
+    [InlineData("teste1@gmail.com", "123456", "Usuário1", "firebase-uid-123", "a496bdba-a13e-4500-a092-0837c9d44cf2")]
+    public async Task CreateUserAsync_MustCallClientAndReturnUid(string email, string password, string name, string firebaseUserId, Guid idUser)
     {
         // Arrange
         var firebaseClientMock = new Mock<IFirebaseService>();
@@ -51,7 +52,7 @@ public sealed class FirebaseAuthServiceTest
         var service = new AuthService(firebaseClientMock.Object);
 
         // Act
-        var result = await service.CreateUserAsync(email, password, name, [RoleFactory.CreateUserRole().Name]);
+        var result = await service.CreateUserAsync(email, password, name, [RoleFactory.CreateUserRole().Name], idUser);
 
         // Assert
         firebaseClientMock.Verify(x => x.CreateUserAsync(email, password, name), Times.Once);

@@ -33,15 +33,29 @@ public class FirebaseService
         return userRecord.Uid;
     }
 
-    public async Task SetUserRoleAsync(string firebaseUserId, IEnumerable<string> roles)
+    public async Task SetUserRoleAsync(string firebaseUserId, IEnumerable<string> roles, Guid? userId)
     {
         var claims = new Dictionary<string, object>
         {
-            ["roles"] = roles.ToArray()
+            { "roles", roles.ToArray() }
         };
 
+        if (userId != null)
+        {
+            claims.Add("system_user_id", userId);
+        }
         await FirebaseAuth.DefaultInstance
             .SetCustomUserClaimsAsync(firebaseUserId, claims);
+    }
+
+    public async Task SetUserIdAsync(string firebaseUserId, Guid userId)
+    {
+        var systemUserId = new Dictionary<string, object>
+        {
+            { "system_user_id", userId }
+        };
+        await FirebaseAuth.DefaultInstance
+            .SetCustomUserClaimsAsync(firebaseUserId, systemUserId);
     }
 
     public async Task<LoginResponse> LoginUserAsync(string email, string password)

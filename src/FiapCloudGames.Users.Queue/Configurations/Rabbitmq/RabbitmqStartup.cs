@@ -12,7 +12,8 @@ public static class RabbitmqStartup
     {
         services.AddMassTransit<IRabbitmqPublish>(x =>
         {
-            x.SetKebabCaseEndpointNameFormatter();
+            x.SetEndpointNameFormatter(
+                new KebabCaseEndpointNameFormatter("users", false));
 
             x.UsingRabbitMq((context, cfg) =>
             {

@@ -61,7 +61,8 @@ public class CreateUserCommandHandler
             user.Email,
             user.Password,
             user.Name,
-            user.Roles.Select(x => x.Name));
+            user.Roles.Select(x => x.Name),
+            user.Id);
 
         return firebaseUserId;
     }
