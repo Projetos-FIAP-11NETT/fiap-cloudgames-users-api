@@ -24,9 +24,9 @@ public sealed class AuthService
         return firebaseUserId;
     }
 
-    public async Task SetUserRoleAsync(string firebaseUserId, IEnumerable<string> roles)
+    public async Task SetUserRoleAsync(string firebaseUserId, IEnumerable<string> roles, Guid idUser)
     {
-        await client.SetUserRoleAsync(firebaseUserId, roles);
+        await client.SetUserRoleAsync(firebaseUserId, roles, idUser);
     }
 
     public async Task<LoginResponse> LoginUserAsync(string email, string password)

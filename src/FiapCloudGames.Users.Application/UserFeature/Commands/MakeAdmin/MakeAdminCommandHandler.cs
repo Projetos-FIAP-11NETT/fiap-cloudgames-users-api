@@ -26,7 +26,7 @@ public class MakeAdminCommandHandler
 
         try
         {
-            await authService.SetUserRoleAsync(user.FirebaseUserId, user.Roles.Select(x => x.Name));
+            await authService.SetUserRoleAsync(user.FirebaseUserId, user.Roles.Select(x => x.Name), user.Id);
         }
         catch (Exception)
         {
