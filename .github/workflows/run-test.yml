@@ -28,4 +28,5 @@ jobs:
                   working-directory: src
 
                 - name: Test
-                  run: dotnet test src/FiapCloudGames.Tests/FiapCloudGames.Tests.csproj --configuration Release
+                  run: dotnet test FiapCloudGames.Users.Tests/FiapCloudGames.Users.Tests.csproj --configuration Release
+                  working-directory: src
