@@ -5,7 +5,6 @@ using System.Diagnostics;
 
 namespace FiapCloudGames.Users.Api.Middlewares;
 
-// You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
 public sealed class RequestResponseLoggingMiddleware(RequestDelegate _next, ILogger<RequestResponseLoggingMiddleware> _logger)
 {
     private const string MessageRequest = "[user-service] CorrelationId: {CorrelationId} | Inicio da Requisicao {Method} {Path}";
@@ -14,7 +13,6 @@ public sealed class RequestResponseLoggingMiddleware(RequestDelegate _next, ILog
 
     public async Task InvokeAsync(HttpContext context, IObservabilityService observabilityService)
     {
-        // CorrelationId
         var correlationId = GetOrCreateCorrelationId(context);
 
         context.Items[ContextItems.CorrelationId] = correlationId;

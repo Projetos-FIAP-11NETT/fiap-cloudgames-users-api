@@ -40,7 +40,7 @@ public class MakeAdminCommandHandler
         }
         catch (Exception)
         {
-            throw new DomainException("Operação não realizada. Perfil não atualizado no banco de dados."); // 5xx
+            throw new DomainException("Operação não realizada. Perfil não atualizado no banco de dados.");
         }
         
     }

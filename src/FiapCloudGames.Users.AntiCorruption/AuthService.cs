@@ -19,7 +19,6 @@ public sealed class AuthService
             return string.Empty;
 
         await client.SetUserRoleAsync(firebaseUserId, roles, userId);
-        //await client.SetUserIdAsync(firebaseUserId, userId);
 
         return firebaseUserId;
     }
