@@ -1,0 +1,31 @@
+name: Build & Unit Tests
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+  
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore FiapCloudGames.Users.slnx
+        working-directory: src
+
+      - name: Build
+        run: dotnet build FiapCloudGames.Users.slnx --no-restore --configuration Release
+        working-directory: src
+
+      - name: Test
+        run: dotnet test FiapCloudGames.Users.Tests/FiapCloudGames.Users.Tests.csproj --configuration Release
+        working-directory: src

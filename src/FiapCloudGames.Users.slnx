@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/Anticorruption/">
+    <Project Path="FiapCloudGames.Users.AntiCorruption/FiapCloudGames.Users.Auth.csproj" />
+  </Folder>
+
+  <Folder Name="/Tests/">
+    <Project Path="FiapCloudGames.Users.Tests/FiapCloudGames.Users.Tests.csproj" />
+  </Folder>
+  <Project Path="FiapCloudGames.Users.Api/FiapCloudGames.Users.Api.csproj" />
+  <Project Path="FiapCloudGames.Users.Application/FiapCloudGames.Users.Application.csproj" />
+  <Project Path="FiapCloudGames.Users.Contract/FiapCloudGames.Users.Contract.csproj" />
+  <Project Path="FiapCloudGames.Users.Domain/FiapCloudGames.Users.Domain.csproj" />
+  <Project Path="FiapCloudGames.Users.Infrastructure/FiapCloudGames.Users.Infrastructure.csproj" />
+  <Project Path="FiapCloudGames.Users.Observability/FiapCloudGames.Users.Observability.csproj" Id="cec87b0d-ed7a-40e9-b28a-287160e6e6a0" />
+  <Project Path="FiapCloudGames.Users.Queue/FiapCloudGames.Queue.csproj" />
+  <Project Path="FiapCloudGames.Users.Shared/FiapCloudGames.Users.Shared.csproj" Id="313ea535-85ba-4716-8389-3f41b6eb79c2">
+    <Build Solution="Debug|*" Project="false" />
+  </Project>
+</Solution>
