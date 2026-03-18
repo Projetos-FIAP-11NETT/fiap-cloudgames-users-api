@@ -1,5 +1,5 @@
 
-# Passo 1: Restore (copia apenas arquivos necess�rios para restore, para aproveitar cache)
+# Passo 1: Restore (copia apenas arquivos necessários para restore, para aproveitar cache)
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS restore
 WORKDIR /app
@@ -21,7 +21,7 @@ COPY ./src/FiapCloudGames.Users.Shared/*.csproj ./FiapCloudGames.Users.Shared/
 
 RUN dotnet restore FiapCloudGames.Users.slnx
 
-# Passo 2: Build (copia o c�digo restante e compila, aproveitando cache do restore)
+# Passo 2: Build (copia o código restante e compila, aproveitando cache do restore)
 
 FROM restore AS build
 WORKDIR /app
@@ -40,7 +40,7 @@ RUN dotnet test FiapCloudGames.Users.slnx \
     --no-build \
     --verbosity normal
 
-# Passo 4: Publish (gera os arquivos de publica��o, aproveitando cache do build)
+# Passo 4: Publish (gera os arquivos de publicação, aproveitando cache do build)
 
 FROM build AS publish
 RUN dotnet publish FiapCloudGames.Users.Api/FiapCloudGames.Users.Api.csproj \
@@ -48,14 +48,14 @@ RUN dotnet publish FiapCloudGames.Users.Api/FiapCloudGames.Users.Api.csproj \
     -o /app/publish \
     --no-build
 
-# Passo 5: Runtime (gera a imagem final, copiando apenas os arquivos de publica��o)
+# Passo 5: Runtime (gera a imagem final, copiando apenas os arquivos de publicação)
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 WORKDIR /app
 
 COPY --from=publish /app/publish .
 
-# Passo 5: Instalação do Agende New Relic
+# Passo 5: Instalação do Agente New Relic
 RUN apt-get update && apt-get install -y curl ca-certificates gnupg \
 && echo 'deb [signed-by=/etc/apt/keyrings/newrelic-apt.gpg] http://apt.newrelic.com/debian/ newrelic non-free' | tee /etc/apt/sources.list.d/newrelic.list \
 && curl -fsSL https://download.newrelic.com/NEWRELIC_APT_2DAD550E.public | gpg --dearmor > /etc/apt/keyrings/newrelic-apt.gpg \
@@ -65,7 +65,7 @@ RUN apt-get update && apt-get install -y curl ca-certificates gnupg \
 
 COPY --from=publish /app/publish .
 
-# Passo 6: Habilitando o Agende New Relic
+# Passo 6: Habilitando o Agente New Relic
 ENV CORECLR_ENABLE_PROFILING=1 \
 CORECLR_PROFILER={36032161-FFC0-4B61-B559-F6C5D41BAE5A} \
 CORECLR_NEWRELIC_HOME=/usr/local/newrelic-dotnet-agent \
@@ -74,8 +74,6 @@ CORECLR_PROFILER_PATH=/usr/local/newrelic-dotnet-agent/libNewRelicProfiler.so
 EXPOSE 8082
 
 ENTRYPOINT ["dotnet", "FiapCloudGames.Users.Api.dll"]
-
-
 
 #gera a imagem  projetofiap/users-api:1 
 #docker build -f docker/Dockerfile -t projetofiap/users-api:1 . 
