@@ -416,3 +416,7 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+
+# Arquivos específicos
+/src/FiapCloudGames.Users.Api/firebase-service-account.json
