@@ -1,4 +1,5 @@
 ﻿using FiapCloudGames.Queue.Configurations.Rabbitmq;
+using FiapCloudGames.Queue.Configurations.Sqs;
 using FiapCloudGames.Queue.Contracts;
 using FiapCloudGames.Users.Shared.Abstractions;
 using MassTransit;
@@ -6,7 +7,11 @@ using Microsoft.Extensions.Logging;
 
 namespace FiapCloudGames.Queue.Publisher
 {
-    public class UserCreatedPublisher(IRabbitmqPublish bus, ILogger<UserCreatedPublisher> logger, ICorrelationIdAccessor correlation) : IUserCreatedPublisher
+    public class UserCreatedPublisher(
+            ISqsPublish bus, 
+            ILogger<UserCreatedPublisher> logger, ICorrelationIdAccessor correlation
+        ) 
+        : IUserCreatedPublisher
     {
         private readonly IPublishEndpoint _publishEndpoint = bus;
         private readonly ILogger<UserCreatedPublisher> _logger = logger;
