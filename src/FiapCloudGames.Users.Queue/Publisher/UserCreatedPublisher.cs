@@ -1,5 +1,4 @@
-﻿using FiapCloudGames.Queue.Configurations.Rabbitmq;
-using FiapCloudGames.Queue.Configurations.Sqs;
+﻿using FiapCloudGames.Queue.Configurations.Sqs;
 using FiapCloudGames.Queue.Contracts;
 using FiapCloudGames.Users.Shared.Abstractions;
 using MassTransit;
