@@ -1,6 +1,8 @@
 ﻿using Amazon.SimpleNotificationService;
 using Amazon.SQS;
 using FiapCloudGames.Queue.Configurations.MassTransit;
+using FiapCloudGames.Queue.Publisher;
+using FiapCloudGames.Users.Domain.Contracts.Publisher;
 using FiapCloudGames.Users.Observability.Providers.NewRelic;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
@@ -48,6 +50,16 @@ public static class SqsStartup
                 cfg.UseConsumeFilter(typeof(NewRelicConsumeFilter<>), context);
 
                 cfg.ConfigureEndpoints(context);
+            });
+        });
+
+        services.AddSingleton<IAmazonSQS>(sp =>
+        {
+            var settings = sp.GetRequiredService<IOptions<SqsSettings>>().Value;
+            return new AmazonSQSClient(settings.AccessKey, settings.SecretKey, new AmazonSQSConfig
+            {
+                ServiceURL = settings.ServiceUrl,
+                AuthenticationRegion = settings.Region
             });
         });
     }

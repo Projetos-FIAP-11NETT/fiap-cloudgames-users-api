@@ -1,6 +1,7 @@
 ﻿using FiapCloudGames.Queue.Configurations.MassTransit;
 using FiapCloudGames.Queue.Configurations.Sqs;
 using FiapCloudGames.Queue.Publisher;
+using FiapCloudGames.Users.Domain.Contracts.Publisher;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,7 +13,7 @@ public static class QueueConfig
     {
 
         services.Configure<MassTransitSettings>(configuration.GetSection(nameof(MassTransitSettings)));
-        services.AddScoped<IUserCreatedPublisher, UserCreatedPublisher>();
+        services.AddScoped<IEmailNotificationPublisher, EmailNotificationPublisher>();
 
         // AWS SQS
         services.Configure<SqsSettings>(configuration.GetSection(nameof(SqsSettings)));

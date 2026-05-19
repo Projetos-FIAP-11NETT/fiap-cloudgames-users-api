@@ -9,4 +9,5 @@ public class SqsSettings
     public string AccessKey { get; set; } = "test";
     public string SecretKey { get; set; } = "test";
     public string ServiceUrl { get; set; } = string.Empty; // Ex: http://localhost:4566 para LocalStack
+    public string EmailQueueUrl { get; set; } = string.Empty;
 }
