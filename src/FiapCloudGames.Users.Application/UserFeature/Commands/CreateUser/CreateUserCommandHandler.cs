@@ -1,5 +1,5 @@
-﻿using FiapCloudGames.Queue.Publisher;
-using FiapCloudGames.Users.Auth;
+﻿using FiapCloudGames.Users.Auth;
+using FiapCloudGames.Users.Domain.Contracts.Publisher;
 using FiapCloudGames.Users.Domain.Contracts.Repositories;
 using FiapCloudGames.Users.Domain.Entities;
 using FiapCloudGames.Users.Domain.Exceptions;
@@ -13,7 +13,7 @@ public class CreateUserCommandHandler
         IAuthService authService,
         IUserRepository userRepository,
         IRoleRepository roleRepository,
-        IUserCreatedPublisher userCreatedPublisher,
+        IEmailNotificationPublisher emailNotificationPublisher,  
         ILogger<CreateUserCommandHandler> logger
     )
     : IRequestHandler<CreateUserCommand, bool>
@@ -44,7 +44,7 @@ public class CreateUserCommandHandler
         {
             try
             {
-                await userCreatedPublisher.PublishAsync(user.Id, user.Email, user.Name);
+                await emailNotificationPublisher.PublishAsync(user.Email, "Bem-vindo ao FiapCloudGames!", $"Olá {user.Name}, bem-vindo ao FiapCloudGames😎! Acesse a nossa biblioteca com os nossos novos jogos de sucesso!!");
             }
             catch (Exception ex)
             {

@@ -79,7 +79,4 @@ ENTRYPOINT ["dotnet", "FiapCloudGames.Users.Api.dll"]
 #docker build -f docker/Dockerfile -t projetofiap/users-api:1 . 
 #docker run -d -p 8083:8083 --name users-api projetofiap/users-api:1
 
-#docker login -u projetofiap #para se conectar ao Docker Hub 
-#password: Fiap!2026
-
 #docker push projetofiap/users-api:1 #sobe imagem para o repositório no Docker Hub

@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.Core" Version="4.0.3.3" />
     <PackageReference Include="MassTransit" Version="8.5.1" />
-    <PackageReference Include="MassTransit.RabbitMQ" Version="8.5.1" />
+    <PackageReference Include="MassTransit.AmazonSQS" Version="8.5.1" />
 	<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FiapCloudGames.Users.Domain\FiapCloudGames.Users.Domain.csproj" />
     <ProjectReference Include="..\FiapCloudGames.Users.Observability\FiapCloudGames.Users.Observability.csproj" />
     <ProjectReference Include="..\FiapCloudGames.Users.Shared\FiapCloudGames.Users.Shared.csproj" />
   </ItemGroup>
