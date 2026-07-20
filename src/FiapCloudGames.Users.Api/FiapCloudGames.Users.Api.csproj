@@ -4,7 +4,8 @@
 		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-	</PropertyGroup>
+	  <UserSecretsId>04999801-92f9-46aa-bdc0-c47698c577a1</UserSecretsId>
+  </PropertyGroup>
 
   <ItemGroup>
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.1">
