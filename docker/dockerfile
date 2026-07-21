@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY ./src/FiapCloudGames.Users.slnx ./
 
-COPY ./src/FiapCloudGames.Users.Api/*.csproj ./FiapCloudGames.Users.Api/
+COPY ./src/FiapCloudGames.Users.API/*.csproj ./FiapCloudGames.Users.API/
 COPY ./src/FiapCloudGames.Users.Application/*.csproj ./FiapCloudGames.Users.Application/
 COPY ./src/FiapCloudGames.Users.Contract/*.csproj ./FiapCloudGames.Users.Contract/
 COPY ./src/FiapCloudGames.Users.Domain/*.csproj ./FiapCloudGames.Users.Domain/
@@ -43,7 +43,7 @@ RUN dotnet test FiapCloudGames.Users.slnx \
 # Passo 4: Publish (gera os arquivos de publicação, aproveitando cache do build)
 
 FROM build AS publish
-RUN dotnet publish FiapCloudGames.Users.Api/FiapCloudGames.Users.Api.csproj \
+RUN dotnet publish FiapCloudGames.Users.API/FiapCloudGames.Users.Api.csproj \
     -c Release \
     -o /app/publish \
     --no-build
