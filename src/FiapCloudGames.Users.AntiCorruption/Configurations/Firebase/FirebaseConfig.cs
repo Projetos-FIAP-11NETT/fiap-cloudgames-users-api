@@ -10,14 +10,12 @@ public static class FirebaseConfig
 {
     public static void AddFirebase(this IServiceCollection services, IConfiguration configuration)
     {
-        var credentialPath = configuration["Firebase:CredentialPath"];
+        var credentialJson = configuration["Firebase:CredentialJson"];
 
-        if (string.IsNullOrWhiteSpace(credentialPath))
-            throw new InvalidOperationException("Firebase credential path não configurado.");
+        if (string.IsNullOrWhiteSpace(credentialJson))
+            throw new InvalidOperationException("Firebase credential json não configurado.");
 
-        var credential = CredentialFactory
-            .FromFile<ServiceAccountCredential>(credentialPath)
-            .ToGoogleCredential();
+        var credential = CredentialFactory.FromJson<ServiceAccountCredential>(credentialJson).ToGoogleCredential();
 
         if (FirebaseApp.DefaultInstance == null)
         {
