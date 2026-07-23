@@ -1,6 +1,8 @@
-﻿using FiapCloudGames.Users.Application.UserFeature.Commands.AuthUser;
+using FiapCloudGames.Users.Application.UserFeature.Commands.AuthUser;
 using FiapCloudGames.Users.Application.UserFeature.Commands.CreateUser;
+using FiapCloudGames.Users.Application.UserFeature.Commands.LogoutSession;
 using FiapCloudGames.Users.Application.UserFeature.Commands.MakeAdmin;
+using FiapCloudGames.Users.Application.UserFeature.Queries.GetSession;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +15,7 @@ public class UserController
     (
         IMediator mediator
     )
-    : ControllerBase   
+    : ControllerBase
 {
     [HttpPost]
     public async Task<IActionResult> CreateAsync([FromBody] CreateUserCommand command)
@@ -35,6 +37,25 @@ public class UserController
             return Ok(result);
 
         return Unauthorized();
+    }
+
+    [HttpGet("Session/{sessionId:guid}")]
+    public async Task<IActionResult> GetSessionAsync([FromRoute] Guid sessionId)
+    {
+        var result = await mediator.Send(new GetSessionQuery(sessionId));
+
+        if (result is null)
+            return NotFound();
+
+        return Ok(result);
+    }
+
+    [HttpDelete("Session/{sessionId:guid}")]
+    public async Task<IActionResult> LogoutAsync([FromRoute] Guid sessionId)
+    {
+        await mediator.Send(new LogoutSessionCommand(sessionId));
+
+        return NoContent();
     }
 
     [HttpPut("MakeAdmin")]
