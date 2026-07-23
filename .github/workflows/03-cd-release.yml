@@ -151,6 +151,19 @@ jobs:
         run: |
           kubectl get nodes
 
+
+      - name: Debug manifests
+        run: |
+          echo "Arquivos encontrados:"
+          find infrastructure/k8s/$SERVICE_NAME/api -type f
+
+      - name: Show Service manifests
+        run: |
+          echo "Conteúdo dos Services:"
+          find infrastructure/k8s/$SERVICE_NAME/api -type f \( -name "*service*.yaml" -o -name "*service*.yml" \) \
+            -exec sh -c 'echo "===== {} ====="; cat "{}"' \;
+
+
       - name: 05 - Apply Users API Manifests
         run: |
           kubectl apply -R -f infrastructure/k8s/$SERVICE_NAME/api
