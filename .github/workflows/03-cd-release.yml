@@ -157,10 +157,14 @@ jobs:
           echo "Arquivos encontrados:"
           find infrastructure/k8s/$SERVICE_NAME/api -type f
 
+      - name: Show current Service
+        run: |
+          kubectl get service users-api -o yaml
+
       - name: Show Service manifests
         run: |
           echo "Conteúdo dos Services:"
-          find infrastructure/k8s/$SERVICE_NAME/api -type f \( -name "*service*.yaml" -o -name "*service*.yml" \) \
+          find infrastructure/k8s/$SERVICE_NAME/api -type f \( -name "*svc*.yaml" -o -name "*svc*.yml" \) \
             -exec sh -c 'echo "===== {} ====="; cat "{}"' \;
 
 
