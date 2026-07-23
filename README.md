@@ -39,25 +39,11 @@ API responsável pelo fluxo de usuários do ecossistema Fiap Cloud Games, inclui
 - `FiapCloudGames.Users.Tests`: testes unitários.
 - `fiap-cloudgames-users-api\docker`: Dockerfile do serviço.
 
-**Configuração**
-As configurações estão em `FiapCloudGames.Users.Api\appsettings.json` e podem ser sobrescritas por variáveis de ambiente usando o padrão do ASP.NET (`__` como separador de níveis).
+**Configuração e credenciais**
 
-**Significado das variáveis de ambiente do projeto (Appsettings)**
-Tabela de referência (exemplos em variável de ambiente):
+O projeto não versiona variáveis de ambiente nem segredos. Os valores sensíveis no `appsettings.json` ficam vazios e devem ser preenchidos localmente. Use o `appsettings.Example.json` como referência da estrutura e das chaves esperadas.
 
-| Chave no appsettings | Variável de ambiente | Descrição |
-| --- | --- | --- |
-| `Logging:LogLevel:Default` | `Logging__LogLevel__Default` | Nível de log padrão da aplicação. |
-| `Logging:LogLevel:Microsoft.AspNetCore` | `Logging__LogLevel__Microsoft.AspNetCore` | Nível de log do ASP.NET Core. |
-| `AllowedHosts` | `AllowedHosts` | Hosts permitidos para a aplicação. |
-| `ConnectionStrings:DefaultConnection` | `ConnectionStrings__DefaultConnection` | String de conexão com o PostgreSQL. |
-| `Firebase:CredentialPath` | `Firebase__CredentialPath` | Caminho do arquivo de credenciais do Firebase. |
-| `Firebase:ApiKey` | `Firebase__ApiKey` | API Key utilizada para operações de autenticação. |
-| `RabbitmqSettings:Address` | `RabbitmqSettings__Address` | Endereço do servidor RabbitMQ. |
-| `RabbitmqSettings:Port` | `RabbitmqSettings__Port` | Porta do RabbitMQ. |
-| `RabbitmqSettings:VirtualHost` | `RabbitmqSettings__VirtualHost` | Virtual Host do RabbitMQ. |
-| `RabbitmqSettings:Username` | `RabbitmqSettings__Username` | Usuário do RabbitMQ. |
-| `RabbitmqSettings:Password` | `RabbitmqSettings__Password` | Senha do RabbitMQ. |
+As configurações podem ser sobrescritas por variáveis de ambiente usando o padrão do ASP.NET (`__` como separador de níveis — ex.: `ConnectionStrings__DefaultConnection`, `Firebase__ApiKey`, `SqsSettings__AccessKey`).
 
 **Como usar o Dockerfile**
 Comandos de exemplo (no diretório raiz do projeto):
