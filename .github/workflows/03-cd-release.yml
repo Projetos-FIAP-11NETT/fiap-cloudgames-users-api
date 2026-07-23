@@ -37,14 +37,14 @@ jobs:
       - name: 01 - Checkout application
         uses: actions/checkout@v4
 
-      # - name: 02 - Validate tag belongs to develop branch
-      #   run: |
-      #     git fetch origin develop
+      - name: 02 - Validate tag belongs to develop branch
+        run: |
+          git fetch origin develop
 
-      #     if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/develop; then
-      #       echo "::error::The tag '$GITHUB_REF_NAME' is not on the develop branch."
-      #       exit 1
-      #     fi
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/develop; then
+            echo "::error::The tag '$GITHUB_REF_NAME' is not on the develop branch."
+            exit 1
+          fi
 
       - name: 03 - Setup .NET
         uses: actions/setup-dotnet@v4
@@ -150,23 +150,6 @@ jobs:
       - name: 04 - Check cluster connection
         run: |
           kubectl get nodes
-
-
-      - name: Debug manifests
-        run: |
-          echo "Arquivos encontrados:"
-          find infrastructure/k8s/$SERVICE_NAME/api -type f
-
-      - name: Show current Service
-        run: |
-          kubectl get service users-api -o yaml
-
-      - name: Show Service manifests
-        run: |
-          echo "Conteúdo dos Services:"
-          find infrastructure/k8s/$SERVICE_NAME/api -type f \( -name "*svc*.yaml" -o -name "*svc*.yml" \) \
-            -exec sh -c 'echo "===== {} ====="; cat "{}"' \;
-
 
       - name: 05 - Apply Users API Manifests
         run: |
