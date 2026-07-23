@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY ./src/FiapCloudGames.Users.slnx ./
 
-COPY ./src/FiapCloudGames.Users.API/*.csproj ./FiapCloudGames.Users.API/
+COPY ./src/FiapCloudGames.Users.Api/*.csproj ./FiapCloudGames.Users.Api/
 COPY ./src/FiapCloudGames.Users.Application/*.csproj ./FiapCloudGames.Users.Application/
 COPY ./src/FiapCloudGames.Users.Contract/*.csproj ./FiapCloudGames.Users.Contract/
 COPY ./src/FiapCloudGames.Users.Domain/*.csproj ./FiapCloudGames.Users.Domain/
