@@ -6,7 +6,7 @@
   <Folder Name="/Tests/">
     <Project Path="FiapCloudGames.Users.Tests/FiapCloudGames.Users.Tests.csproj" />
   </Folder>
-  <Project Path="FiapCloudGames.Users.API/FiapCloudGames.Users.Api.csproj" />
+  <Project Path="FiapCloudGames.Users.Api/FiapCloudGames.Users.Api.csproj" />
   <Project Path="FiapCloudGames.Users.Application/FiapCloudGames.Users.Application.csproj" />
   <Project Path="FiapCloudGames.Users.Contract/FiapCloudGames.Users.Contract.csproj" />
   <Project Path="FiapCloudGames.Users.Domain/FiapCloudGames.Users.Domain.csproj" />
