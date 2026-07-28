@@ -9,7 +9,8 @@ API responsável pelo fluxo de usuários do ecossistema Fiap Cloud Games, inclui
 - Autenticação/login de usuário.
 - Promoção de usuário para perfil administrador.
 - Integração com Firebase Authentication.
-- Publicação de evento de usuário criado em fila RabbitMQ.
+- Cache de sessão distribuído em Redis.
+- Publicação de evento de usuário criado em fila (RabbitMQ / Amazon SQS).
 - Health checks em `/health`, `/health/ready` e `/health/live`.
 - Documentação OpenAPI com Scalar.
 - Observabilidade com New Relic e logs estruturados via Serilog.
@@ -18,8 +19,9 @@ API responsável pelo fluxo de usuários do ecossistema Fiap Cloud Games, inclui
 - .NET 10 e ASP.NET Core.
 - MediatR.
 - Entity Framework Core + Npgsql (PostgreSQL).
+- Redis (cache de sessão distribuído — `RedisSessionCacheService`).
 - Firebase Admin SDK.
-- MassTransit com RabbitMQ.
+- MassTransit com RabbitMQ / Amazon SQS.
 - FluentValidation.
 - Serilog.
 - New Relic.
